@@ -28,13 +28,12 @@ npm run start:dev
 
 ## Common commands(example):
 
-4. run ***npm run start:dev*** (dev mode)
+4. run ```npm run start:dev``` (dev mode)
 5. run ***npm run start:prod*** (prod mode)
 6. run ***npm run test*** (start tests)
 7. run ***npm run lint*** (start eslint)
 8. run ***npm run format*** (start prettier to format .ts files)
 ```
-npm run start:dev
 npm run start:prod
 npm run test
 npm run lint
