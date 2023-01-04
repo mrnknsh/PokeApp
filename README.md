@@ -17,6 +17,7 @@
 ## ENV:
 
 1. initial node version: ***v16.16.0***(example)
+2. API: ***https://pokeapi.co/***
 
 ## Onboarding:
 
