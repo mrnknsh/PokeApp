@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="89dda0ad-780c-4cca-8a32-a226f344044a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -12,9 +11,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="PackageJsonUpdateNotifier">
-    <dismissed value="$PROJECT_DIR$/package.json" />
   </component>
   <component name="ProjectId" id="2Js5WID6Ez03wFezX3MSjyhNMo3" />
   <component name="ProjectViewState">
@@ -44,7 +40,7 @@
       <updated>1672853979419</updated>
       <workItem from="1672853981496" duration="195000" />
       <workItem from="1672860194405" duration="715000" />
-      <workItem from="1672943847263" duration="3570000" />
+      <workItem from="1672943847263" duration="5364000" />
     </task>
     <servers />
   </component>
