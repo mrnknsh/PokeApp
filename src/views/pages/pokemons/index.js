@@ -53,6 +53,7 @@ export const Pokemons = () => {
                 <div>{pokemons?.length ? pokemons.map(pokemon => <Pokemon key={pokemon?.url} name={pokemon?.name}/>) :
                     <p>NotFound</p>}</div>
             }
+
         </div>
     )
 }

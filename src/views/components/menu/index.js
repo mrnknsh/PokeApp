@@ -6,7 +6,6 @@ import {useState} from "react";
 
 export const Menu = () => {
     const [isMenuActive, setIsMenuActive] = useState(false)
-    console.log(isMenuActive)
     return(
         <nav className={'main-menu'}>
             <h1>
@@ -17,7 +16,7 @@ export const Menu = () => {
             <div className={'burger-menu'} onClick={()=>setIsMenuActive(!isMenuActive)}>
                 <FontAwesomeIcon icon={faBars}/>
             </div>
-            <ul className={isMenuActive ? 'active' : ''}>
+            <ul className={isMenuActive ? 'add-menu' : 'hide-menu'} onClick={()=>setIsMenuActive(!isMenuActive)}>
                 <li>
                     <Link to='/'>Home</Link>
                 </li>
