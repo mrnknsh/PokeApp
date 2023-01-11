@@ -11,3 +11,14 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.App{
+  margin: 0 13%;
+  position: relative;
+}
+
+@media screen and (max-width: 991px){
+  .App{
+    margin: 0;
+  }
+}
