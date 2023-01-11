@@ -1,8 +1,8 @@
 import {API} from "../API";
 import axios from "axios";
 
-export const getPokemons = async (limit, offset) => {
-    return axios.get(`${API}/pokemon?limit=${limit}&offset=${offset}`)
+export const getPokemons = async (offset, limit) => {
+    return axios.get(`${API}/pokemon?offset=${offset}&limit=${limit}`)
 }
 
 export const getPokemon = async (name) => {
