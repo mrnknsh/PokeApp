@@ -3,12 +3,11 @@ import {getPokemons} from "../../../services";
 import {Link} from "react-router-dom";
 import {Pagination} from "../../components/pagination";
 
-
 export const Pokemons = () => {
     const pageSize = 10;
     const [pokemons, setPokemons] = useState([])
     const [isLoading, setIsLoading] = useState(false)
-    const [numberOfPages, setNumberOfPages] = useState([])
+    const [numberOfPages, setNumberOfPages] = useState(0)
     const [prevPage, setPrevPage] = useState(false)
     const [nextPage, setNextPage] = useState(false)
     // const {name} = useParams()
@@ -21,7 +20,7 @@ export const Pokemons = () => {
             console.log(res?.data)
             setPrevPage(res?.data?.previous === null)
             setNextPage(res?.data?.next === null)
-            setNumberOfPages(Array.from({length: Math.ceil(res.data.count / pageSize)}, (v, k) => k + 1))
+            setNumberOfPages(Math.ceil(res.data.count / pageSize))
         } catch (error) {
             console.log(error)
         } finally {

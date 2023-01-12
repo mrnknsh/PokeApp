@@ -5,41 +5,41 @@ export const Pagination = ({numberOfPages, pageSize, onLoadPokemons, prevPage, n
     const [currentPage, setCurrentPage] = useState(0)
     const [visiblePages, setVisiblePages] = useState([])
 
-
-
-    const getVisiblePage = () => {
-        if (currentPage == 0) {
-            setVisiblePages([currentPage + 1, currentPage + 2, currentPage + 3])
-        } else if (currentPage == 1) {
-            setVisiblePages([currentPage, currentPage + 1, currentPage + 2, currentPage + 3])
-        } else if (currentPage === numberOfPages - 1) {
-            setVisiblePages([currentPage - 1, currentPage, currentPage + 1])
-        } else if (currentPage === numberOfPages - 2) {
-            setVisiblePages([currentPage - 2, currentPage - 1, currentPage, currentPage + 1])
+    const getVisiblePage = (page) => {
+        if (page === 0) {
+            setVisiblePages([page + 1, page + 2, page + 3])
+        } else if (page === 1) {
+            setVisiblePages([page, page + 1, page + 2, page + 3])
+        } else if (page === numberOfPages - 1) {
+            setVisiblePages([page - 1, page, page + 1])
+        } else if (page === numberOfPages - 2) {
+            setVisiblePages([page - 2, page - 1, page, page + 1])
         } else {
-            setVisiblePages([currentPage - 2, currentPage - 1, currentPage, currentPage + 1, currentPage + 2])
+            setVisiblePages([page - 1, page, page + 1, page + 2, page + 3])
         }
     }
+
 
     const getPageByNumber = (page) => {
         setCurrentPage(page)
         onLoadPokemons(page * pageSize, pageSize)
-        getVisiblePage()
-        console.log(currentPage)
+        getVisiblePage(page)
     }
     const getPrevPage = () => {
         onLoadPokemons((currentPage - 1) * pageSize, pageSize)
+        getVisiblePage(currentPage - 1)
         setCurrentPage(currentPage - 1)
-        getVisiblePage()
     }
     const getNextPage = () => {
         onLoadPokemons((currentPage + 1) * pageSize, pageSize)
+        getVisiblePage(currentPage + 1)
         setCurrentPage(currentPage + 1)
-        getVisiblePage()
     }
 
+
     useEffect(() => {
-        getVisiblePage()
+        getVisiblePage(0)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
 
@@ -48,8 +48,9 @@ export const Pagination = ({numberOfPages, pageSize, onLoadPokemons, prevPage, n
             <button className={'prev-next'} onClick={() => getPrevPage()} disabled={prevPage}>Prev</button>
             {visiblePages.map(elem => {
                 return (
-                    <button key={elem - 1} className={'number'}
-                            onClick={() => getPageByNumber(elem - 1)}>{elem}</button>
+                    <button key={elem - 1} className={'number'} onClick={() => {
+                        getPageByNumber(elem - 1)
+                    }}>{elem}</button>
                 )
             })}
             <button className={'prev-next'} onClick={() => getNextPage()} disabled={nextPage}>Next</button>
