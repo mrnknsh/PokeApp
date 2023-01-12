@@ -36,8 +36,10 @@ export const Pagination = ({numberOfPages, pageSize, onLoadPokemons, prevPage, n
         setCurrentPage(currentPage + 1)
     }
 
+
     useEffect(() => {
         getVisiblePage(0)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
 
