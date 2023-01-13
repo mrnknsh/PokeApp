@@ -5,20 +5,72 @@ export const Pagination = ({numberOfPages, pageSize, onLoadPokemons, prevPage, n
     const [currentPage, setCurrentPage] = useState(0)
     const [visiblePages, setVisiblePages] = useState([])
 
+    // const getVisiblePage = (page) => {
+    //     if (page === 0) {
+    //         setVisiblePages([page + 1, page + 2, page + 3])
+    //     } else if (page === 1) {
+    //         setVisiblePages([page, page + 1, page + 2, page + 3])
+    //     } else if (page === numberOfPages - 1) {
+    //         setVisiblePages([page - 1, page, page + 1])
+    //     } else if (page === numberOfPages - 2) {
+    //         setVisiblePages([page - 2, page - 1, page, page + 1])
+    //     } else {
+    //         setVisiblePages([page - 1, page, page + 1, page + 2, page + 3])
+    //     }
+    // }
+
     const getVisiblePage = (page) => {
         if (page === 0) {
-            setVisiblePages([page + 1, page + 2, page + 3])
+            setVisiblePages([
+                {pageNum: page + 1, status: false},
+                {pageNum: page + 2, status: false},
+                {pageNum: page + 3, status: false},
+            ])
         } else if (page === 1) {
-            setVisiblePages([page, page + 1, page + 2, page + 3])
+            setVisiblePages([
+                {pageNum: page, status: false},
+                {pageNum: page + 1, status: false},
+                {pageNum: page + 2, status: false},
+                {pageNum: page + 3, status: false},
+            ])
         } else if (page === numberOfPages - 1) {
-            setVisiblePages([page - 1, page, page + 1])
+            setVisiblePages([
+                {pageNum: page - 1, status: false},
+                {pageNum: page, status: false},
+                {pageNum: page + 1, status: false},
+            ])
         } else if (page === numberOfPages - 2) {
-            setVisiblePages([page - 2, page - 1, page, page + 1])
+            setVisiblePages([
+                {pageNum: page - 2, status: false},
+                {pageNum: page - 1, status: false},
+                {pageNum: page, status: false},
+                {pageNum: page + 1, status: false},
+            ])
         } else {
-            setVisiblePages([page - 1, page, page + 1, page + 2, page + 3])
+            setVisiblePages([
+                {pageNum: page - 1, status: false},
+                {pageNum: page, status: false},
+                {pageNum: page + 1, status: false},
+                {pageNum: page + 2, status: false},
+                {pageNum: page + 3, status: false},
+            ])
         }
     }
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const colorSelectedPage = () => {
+        visiblePages.forEach(elem => elem.status = false)
+        // eslint-disable-next-line array-callback-return
+        visiblePages.find(elem => {
+            if (elem.pageNum === currentPage+1) {
+                elem.status = true
+            }
+        })
+    }
+
+    useEffect(() => {
+        colorSelectedPage()
+    }, [colorSelectedPage])
 
     const getPageByNumber = (page) => {
         setCurrentPage(page)
@@ -48,9 +100,9 @@ export const Pagination = ({numberOfPages, pageSize, onLoadPokemons, prevPage, n
             <button className={'prev-next'} onClick={() => getPrevPage()} disabled={prevPage}>Prev</button>
             {visiblePages.map(elem => {
                 return (
-                    <button key={elem - 1} className={'number'} onClick={() => {
-                        getPageByNumber(elem - 1)
-                    }}>{elem}</button>
+                    <button key={elem.pageNum - 1} className={elem.status ? 'selected-page number' : 'number'} onClick={() => {
+                        getPageByNumber(elem.pageNum - 1)
+                    }}>{elem.pageNum}</button>
                 )
             })}
             <button className={'prev-next'} onClick={() => getNextPage()} disabled={nextPage}>Next</button>
