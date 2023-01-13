@@ -5,20 +5,6 @@ export const Pagination = ({numberOfPages, pageSize, onLoadPokemons, prevPage, n
     const [currentPage, setCurrentPage] = useState(0)
     const [visiblePages, setVisiblePages] = useState([])
 
-    // const getVisiblePage = (page) => {
-    //     if (page === 0) {
-    //         setVisiblePages([page + 1, page + 2, page + 3])
-    //     } else if (page === 1) {
-    //         setVisiblePages([page, page + 1, page + 2, page + 3])
-    //     } else if (page === numberOfPages - 1) {
-    //         setVisiblePages([page - 1, page, page + 1])
-    //     } else if (page === numberOfPages - 2) {
-    //         setVisiblePages([page - 2, page - 1, page, page + 1])
-    //     } else {
-    //         setVisiblePages([page - 1, page, page + 1, page + 2, page + 3])
-    //     }
-    // }
-
     const getVisiblePage = (page) => {
         if (page === 0) {
             setVisiblePages([

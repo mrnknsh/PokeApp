@@ -2,6 +2,7 @@ import {useState, useEffect} from "react";
 import {getPokemons} from "../../../services";
 import {Link} from "react-router-dom";
 import {Pagination} from "../../components/pagination";
+import './style.scss'
 
 export const Pokemons = () => {
     const pageSize = 10;
@@ -49,17 +50,17 @@ export const Pokemons = () => {
     //     loadPokemon()
     // }, [name])
 
-    const Pokemon = ({name}) => <p>
+    const Pokemon = ({name}) => <p className={'pokemon-in-main'}>
         <Link to={`/pokemons/${name}`}>
             {name}
         </Link>
     </p>
 
     return (
-        <div>
+        <div className={'pokemons-page'}>
             <h2>Pokemons: </h2>
             {isLoading ? <div>Loading..</div> :
-                <div>{pokemons?.length ? pokemons.map(pokemon => <Pokemon key={pokemon?.url} name={pokemon?.name}/>) :
+                <div className={'pokemons-block'}>{pokemons?.length ? pokemons.map(pokemon => <Pokemon key={pokemon?.url} name={pokemon?.name}/>) :
                     <p>NotFound</p>}</div>
             }
             <Pagination numberOfPages={numberOfPages} pageSize={pageSize} onLoadPokemons={loadPokemons}
