@@ -1,11 +1,13 @@
 .page-btns{
+  margin: 20px 0;
+  text-align: center;
   button{
     display: inline-block;
     margin: 2px;
     background-color: white;
     border: 1px solid #000000;
     border-radius: 2px;
-    transition: background-color 300ms;
+    transition: background-color 200ms;
     &.number{
       width: 38px;
       padding: 4px 8px;
@@ -17,9 +19,8 @@
       cursor: pointer;
       background-color: rgba(63,81,181, 0.3);
     }
+    &.selected-page{
+      border: 3px solid #3f51b5;
+    }
   }
-}
-
-.color{
-  background-color: #3f51b5;
 }
