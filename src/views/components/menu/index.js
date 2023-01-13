@@ -16,7 +16,7 @@ export const Menu = () => {
             <div className={'burger-menu'} onClick={()=>setIsMenuActive(!isMenuActive)}>
                 <FontAwesomeIcon icon={faBars}/>
             </div>
-            <ul className={isMenuActive ? 'add-menu' : 'hide-menu'} onClick={()=>setIsMenuActive(!isMenuActive)}>
+            <ul className={isMenuActive ? 'open-menu' : ''} onClick={()=>setIsMenuActive(!isMenuActive)}>
                 <li>
                     <Link to='/'>Home</Link>
                 </li>

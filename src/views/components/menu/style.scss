@@ -74,19 +74,33 @@
 @media screen and (max-width: 767px) {
   .main-menu {
     width: 100%;
+
     ul {
       display: none;
 
-      &.add-menu {
+      &.open-menu {
         display: block;
         position: absolute;
         background-color: #3f51b5;
         top: 60px;
-        padding-top: 20px;
+        padding: 20px 30px 5px;
         right: 0;
-        padding-right: 55px;
+      }
+
+      li {
+        padding-right: 10px;
+
+        a {
+          display: inline-block;
+          width: 150px;
+
+          &:hover:after {
+            width: 0;
+          }
+        }
       }
     }
+
 
     .burger-menu {
       display: block;

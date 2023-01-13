@@ -84,7 +84,7 @@ export const Pagination = ({numberOfPages, pageSize, onLoadPokemons, prevPage, n
     return (
         <div className={'page-btns'}>
             <button className={'prev-next'} onClick={() => getPrevPage()} disabled={prevPage}>Prev</button>
-            {visiblePages.map(elem => {
+            {visiblePages?.length && visiblePages.map(elem => {
                 return (
                     <button key={elem.pageNum - 1} className={elem.status ? 'selected-page number' : 'number'} onClick={() => {
                         getPageByNumber(elem.pageNum - 1)
