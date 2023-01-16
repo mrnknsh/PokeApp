@@ -28,6 +28,22 @@
       margin: auto 0;
       padding: 0 50px 8px 0;
 
+      &.active {
+        a {
+          font-weight: bold;
+
+          &:after {
+            display: block;
+            position: absolute;
+            left: 50%;
+            width: 100%;
+            height: 1.5px;
+            background-color: #ffff52;
+            content: "";
+          }
+        }
+      }
+
       a {
         color: #ffff52;
         text-decoration: none;
@@ -48,16 +64,6 @@
         &:hover:after {
           width: 100%;
         }
-
-        //.selected-menu:after{
-        //  display: block;
-        //  position: absolute;
-        //  left: 0;
-        //  width: 100%;
-        //  height: 1.5px;
-        //  background-color: #ffff52;
-        //  content: "";
-        //}
       }
     }
   }
@@ -77,6 +83,16 @@
 
     ul {
       display: none;
+
+      li {
+        &.active {
+          a {
+            &:after {
+              width: 0;
+            }
+          }
+        }
+      }
 
       &.open-menu {
         display: block;
@@ -100,7 +116,6 @@
         }
       }
     }
-
 
     .burger-menu {
       display: block;

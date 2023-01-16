@@ -64,7 +64,7 @@ export const Pokemons = () => {
                     <p>NotFound</p>}</div>
             }
             <Pagination numberOfPages={numberOfPages} pageSize={pageSize} onLoadPokemons={loadPokemons}
-                        prevPage={prevPage} nextPage={nextPage}/>
+                        prevPage={prevPage} nextPage={nextPage} isLoading={isLoading}/>
         </div>
     )
 }

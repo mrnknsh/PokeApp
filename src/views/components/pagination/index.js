@@ -1,7 +1,7 @@
 import './style.scss'
 import {useEffect, useState} from "react";
 
-export const Pagination = ({numberOfPages, pageSize, onLoadPokemons, prevPage, nextPage}) => {
+export const Pagination = ({numberOfPages, pageSize, onLoadPokemons, prevPage, nextPage, isLoading}) => {
     const [currentPage, setCurrentPage] = useState(0)
     const [visiblePages, setVisiblePages] = useState([])
 
@@ -43,12 +43,12 @@ export const Pagination = ({numberOfPages, pageSize, onLoadPokemons, prevPage, n
         }
     }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     const colorSelectedPage = () => {
         visiblePages.forEach(elem => elem.status = false)
-        // eslint-disable-next-line array-callback-return
+
         visiblePages.find(elem => {
-            if (elem.pageNum === currentPage+1) {
+            if (elem.pageNum === currentPage + 1) {
                 elem.status = true
             }
         })
@@ -77,21 +77,22 @@ export const Pagination = ({numberOfPages, pageSize, onLoadPokemons, prevPage, n
 
     useEffect(() => {
         getVisiblePage(0)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+
     }, [])
 
 
     return (
         <div className={'page-btns'}>
-            <button className={'prev-next'} onClick={() => getPrevPage()} disabled={prevPage}>Prev</button>
+            <button className={'prev-next'} onClick={() => getPrevPage()} disabled={isLoading ? true : prevPage}>Prev
+            </button>
             {visiblePages?.length && visiblePages.map(elem => {
                 return (
-                    <button key={elem.pageNum - 1} className={elem.status ? 'selected-page number' : 'number'} onClick={() => {
-                        getPageByNumber(elem.pageNum - 1)
-                    }}>{elem.pageNum}</button>
+                    <button key={elem.pageNum - 1} className={elem.status ? 'selected-page number' : 'number'}
+                            onClick={() => getPageByNumber(elem.pageNum - 1)}
+                            disabled={!!isLoading}>{elem.pageNum}</button>
                 )
             })}
-            <button className={'prev-next'} onClick={() => getNextPage()} disabled={nextPage}>Next</button>
+            <button className={'prev-next'} onClick={() => getNextPage()} disabled={isLoading ? true : nextPage}>Next</button>
         </div>
     )
 }
