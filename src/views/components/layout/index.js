@@ -8,7 +8,6 @@ export const Layout = () => (
         <div className={'mt-100'}>
             <Outlet/>
         </div>
-
     </div>
 )
 
