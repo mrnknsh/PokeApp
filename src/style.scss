@@ -1,0 +1,24 @@
+$margin-header: 40px;
+$paddingWrapperY: 10px;
+$paddingWrapperX: 40px;
+
+.mt-100{
+    margin-top: 100px;
+}
+
+.mx-40{
+    margin-left: $margin-header;
+    margin-right: $margin-header;
+}
+
+.px-10{
+    padding-top: $paddingWrapperY;
+    padding-bottom: $paddingWrapperY;
+}
+
+.py-40{
+    padding-left: $paddingWrapperX;
+    padding-right: $paddingWrapperX;
+}
+
+

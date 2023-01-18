@@ -3,6 +3,7 @@ import {Layout} from "./views/components/layout";
 import {Home} from "./views/pages/home";
 import {NotFound} from "./views/pages/notFound";
 import {Pokemons} from "./views/pages/pokemons";
+import {Pokemon} from "./views/pages/pokemon";
 
 
 export const App = () => {
@@ -13,7 +14,7 @@ export const App = () => {
                     <Route path='/' element={<Layout/>}>
                         <Route index element={<Home/>}/>
                         <Route path='/pokemons' element={<Pokemons/>}/>
-                        <Route path='/pokemons/:name' element={<Pokemons/>}/>
+                        <Route path='/pokemons/:name' element={<Pokemon/>}/>
                         <Route path='*' element={<NotFound/>}/>
                     </Route>
                 </Routes>

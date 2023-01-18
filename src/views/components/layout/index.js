@@ -1,6 +1,6 @@
 import {Outlet} from 'react-router-dom'
 import {Menu} from "../menu";
-import '../../../index.css'
+import '../../../style.scss'
 
 export const Layout = () => (
     <div>
@@ -8,7 +8,6 @@ export const Layout = () => (
         <div className={'mt-100'}>
             <Outlet/>
         </div>
-
     </div>
 )
 
