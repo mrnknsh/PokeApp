@@ -34,7 +34,7 @@ export const Pokemons = () => {
 
     return (
         <div className={'pokemons-page'}>
-            <h2>Pokemons</h2>
+            <h2 className={'mx-40'}>Pokemons</h2>
             {isLoading ? <div>Loading..</div> :
                 <div className={'pokemons-block'}>{pokemons?.length ? pokemons.map(pokemon => <PokemonCard key={pokemon?.url} name={pokemon?.name}/>) :
                     <p>NotFound</p>}</div>
