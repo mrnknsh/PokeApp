@@ -10,37 +10,26 @@ export const PokemonDescription = ({pokeName}) => {
     const [pokemonHeight, setPokemonHeight] = useState([])
     const [pokemonAbilities, setPokemonAbilities] = useState([])
     const [pokemonType, setPokemonType] = useState([])
+    const [pokemonStat, setPokemonStat] = useState([])
 
     const loadPokemon = async (pokeName) => {
         try {
-            // let urls = [];
             const res = await getPokemon(pokeName)
-            // urls.push()
-            // await Promise.all(
-            //     res.data["characters"].map(url=>{
-            //         return axios.get(url).then(character=>{
-            //             array.push(character.data.name);
-            //         })
-            //     })
-            // ).then(result=>{
-            //     console.log("array:",array);
-            //     JSON.stringify(array);
-            // })
 
-            console.log(res.data)
+            console.log(res.data.stats)
             setPokemon(res.data.name[0].toUpperCase() + res.data.name.slice(1))
             setPokemonId(res.data.id)
             setPokemonWeight(res.data.weight)
             setPokemonHeight(res.data.height)
             setPokemonAbilities(res.data.abilities)
             setPokemonType(res.data.types)
+            setPokemonStat(res.data.stats)
         } catch (error) {
             console.log(error)
         } finally {
 
         }
     }
-
 
     useEffect(() => {
         loadPokemon(pokeName)
@@ -50,7 +39,7 @@ export const PokemonDescription = ({pokeName}) => {
     return (
         <div className={'pokemon-description'}>
             <h2 className={'mx-40'}>{pokemon}</h2>
-            <div className={'poke-info px-10 py-40'}>
+            <div className={'poke-info px-40'}>
                 <div className={'poke-img'}>
                     <img
                         src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png`}
@@ -58,19 +47,14 @@ export const PokemonDescription = ({pokeName}) => {
                 </div>
                 <div className={'poke-descr'}>
                     <h3>DESCRIPTION</h3>
-                    <div>
-                        <p>Weight:</p> <span>{pokemonWeight}</span>
-                    </div>
-                    <div>
-                        <p>Height:</p> <span>{pokemonHeight}</span>
-                    </div>
+                    <p>Weight:</p> <span>{pokemonWeight}</span>
+                    <br/>
+                    <p>Height:</p> <span>{pokemonHeight}</span>
                     <div className={'poke-abilities'}>
                         <p>Abilities:</p>
                         <div>
                             {pokemonAbilities.map(elem => {
-                                return (
-                                    <span key={elem.ability.name}>{elem.ability.name}</span>
-                                )
+                                return <span key={elem.ability.name}>{elem.ability.name}</span>
                             })
                             }
                         </div>
@@ -79,17 +63,29 @@ export const PokemonDescription = ({pokeName}) => {
                         <p>Types:</p>
                         <div>
                             {pokemonType.map(elem => {
+                                return <span key={elem.type.name}>{elem.type.name}</span>
+                            })}
+                        </div>
+                    </div>
+                </div>
+                <div className={'poke-stat'}>
+                    <h3>STATS</h3>
+                    <div className={'stats-wrapper'}>
+                        {
+                            pokemonStat.map((elem, index) => {
                                 return (
-                                    <span key={elem.type.name}>{elem.type.name}</span>
+                                    <div>
+                                        <p key={index}
+                                           style={{backgroundImage: `linear-gradient(to top, hotpink ${elem.base_stat}%, rgba(0,0,0,0) ${elem.base_stat}%)`}}
+                                           className={'canvas'}/>
+                                        <p key={elem.stat.name}>{elem.stat.name[0].toUpperCase() + elem.stat.name.slice(1)}</p>
+                                    </div>
                                 )
                             })
-                            }
-                        </div>
-
+                        }
                     </div>
                 </div>
             </div>
         </div>
     )
-
 }

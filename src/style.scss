@@ -1,6 +1,6 @@
 $margin-header: 40px;
-$paddingWrapperY: 10px;
 $paddingWrapperX: 40px;
+$paddingWrapperY: 10px;
 
 .mt-100{
     margin-top: 100px;
@@ -11,14 +11,14 @@ $paddingWrapperX: 40px;
     margin-right: $margin-header;
 }
 
-.px-10{
-    padding-top: $paddingWrapperY;
-    padding-bottom: $paddingWrapperY;
-}
-
-.py-40{
+.px-40{
     padding-left: $paddingWrapperX;
     padding-right: $paddingWrapperX;
+}
+
+.py-10{
+    padding-top: $paddingWrapperY;
+    padding-bottom: $paddingWrapperY;
 }
 
 
