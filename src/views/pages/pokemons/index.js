@@ -36,7 +36,7 @@ export const Pokemons = () => {
         <div className={'pokemons-page'}>
             <h2 className={'mx-40'}>Pokemons</h2>
             {isLoading ? <div>Loading..</div> :
-                <div className={'pokemons-block'}>{pokemons?.length ? pokemons.map(pokemon => <PokemonCard key={pokemon?.url} name={pokemon?.name}/>) :
+                <div className={'pokemons-block px-40'}>{pokemons?.length ? pokemons.map(pokemon => <PokemonCard key={pokemon?.url} name={pokemon?.name}/>) :
                     <p>NotFound</p>}</div>
             }
             <Pagination numberOfPages={numberOfPages} pageSize={pageSize} onLoadPokemons={loadPokemons}

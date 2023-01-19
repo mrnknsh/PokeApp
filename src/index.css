@@ -17,7 +17,7 @@ code {
   position: relative;
 }
 
-@media screen and (max-width: 767px){
+@media screen and (max-width: 1024px){
   .App{
     margin: 0;
   }
