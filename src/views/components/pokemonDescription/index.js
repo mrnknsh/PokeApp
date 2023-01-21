@@ -15,8 +15,6 @@ export const PokemonDescription = ({pokeName}) => {
     const loadPokemon = async (pokeName) => {
         try {
             const res = await getPokemon(pokeName)
-
-            console.log(res.data.stats)
             setPokemon(res.data.name[0].toUpperCase() + res.data.name.slice(1))
             setPokemonId(res.data.id)
             setPokemonWeight(res.data.weight)
@@ -43,7 +41,8 @@ export const PokemonDescription = ({pokeName}) => {
                 <div className={'poke-img'}>
                     <img
                         src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png`}
-                        alt={pokemon}/>
+                        alt={pokemon}
+                    key={pokemonId + 10}/>
                 </div>
                 <div className={'poke-descr'}>
                     <h3>DESCRIPTION</h3>
@@ -53,35 +52,28 @@ export const PokemonDescription = ({pokeName}) => {
                     <div className={'poke-abilities'}>
                         <p>Abilities:</p>
                         <div>
-                            {pokemonAbilities.map(elem => {
-                                return <span key={elem.ability.name}>{elem.ability.name}</span>
-                            })
-                            }
-                        </div>
+                            {pokemonAbilities.map(elem => <span key={elem.ability.name}>{elem.ability.name}</span>)}                       </div>
                     </div>
                     <div className={'poke-types'}>
                         <p>Types:</p>
                         <div>
-                            {pokemonType.map(elem => {
-                                return <span key={elem.type.name}>{elem.type.name}</span>
-                            })}
+                            {pokemonType.map(elem => <span key={elem.type.name}>{elem.type.name}</span>)}
                         </div>
                     </div>
                 </div>
                 <div className={'poke-stat'}>
                     <h3>STATS</h3>
                     <div className={'stats-wrapper'}>
-                        {
-                            pokemonStat.map((elem, index) => {
-                                return (
-                                    <div>
-                                        <p key={index}
-                                           style={{backgroundImage: `linear-gradient(to top, hotpink ${elem.base_stat}%, rgba(0,0,0,0) ${elem.base_stat}%)`}}
-                                           className={'canvas'}/>
-                                        <p key={elem.stat.name}>{elem.stat.name[0].toUpperCase() + elem.stat.name.slice(1)}</p>
-                                    </div>
-                                )
-                            })
+                        {pokemonStat.map((elem, index) => {
+                            return (
+                                <div>
+                                    <p key={elem.stat.name}
+                                       style={{backgroundImage: `linear-gradient(to top, hotpink ${elem.base_stat}%, rgba(0,0,0,0) ${elem.base_stat}%)`}}
+                                       className={'canvas'}/>
+                                    <p key={index+100}>{elem.stat.name[0].toUpperCase() + elem.stat.name.slice(1)}</p>
+                                </div>
+                            )
+                        })
                         }
                     </div>
                 </div>
