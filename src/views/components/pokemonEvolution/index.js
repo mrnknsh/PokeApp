@@ -32,7 +32,6 @@ export const PokemonEvolution = ({pokeName}) => {
         } catch (error) {
             console.log(error)
         } finally {
-
         }
     }
 
@@ -43,15 +42,15 @@ export const PokemonEvolution = ({pokeName}) => {
 
     return (
         <div className={'evolution-wrapper'}>
-            <h3>EVOLUTION</h3>
+            <h3>Pokemon's evolution tree</h3>
             {
                 evolution.map((elem, index) => {
                     return (
                         <div className={'evolution-item'}>
-                            <p key={index+1}>Step {index+1}</p>
+                            <p key={index+1} className={'evolution-step'}>Evolution step {index+1}</p>
                             <img
                                 src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${elem.id}.png`}
-                                alt={elem.name} key={elem.id + 20}/>
+                                alt={elem.name} key={elem.id*1000}/>
                             <p key={elem.name}>{elem.name[0].toUpperCase() + elem.name.slice(1)}</p>
                         </div>
                     )

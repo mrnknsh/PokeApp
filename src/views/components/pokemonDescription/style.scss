@@ -1,16 +1,25 @@
+@import "../../../../src/style";
+
 %m-20 {
   margin: 20px;
 }
 
 .pokemon-description {
+  h2 {
+    text-align: center;
+    font-size: 1.8rem;
+    color: mediumslateblue;
+  }
+
   h3 {
     text-align: center;
-    margin: 10px 0 20px;
+    margin: 10px 0 25px;
+    justify-content: space-between;
   }
 
   .poke-info {
     display: grid;
-    grid-template-columns: 2fr 3fr;
+    grid-template-columns: repeat(2, 1fr);
 
     .poke-img {
       text-align: center;
@@ -23,10 +32,8 @@
 
     .poke-descr {
       width: 320px;
-      border: 2px solid #3f51b5;
-      border-radius: 10px;
+      @extend %border-T-B;
       padding: 20px 40px;
-      background-color: rgba(255, 255, 82, 0.5);
       @extend %m-20;
 
       p {
@@ -107,6 +114,7 @@
 
       .poke-img {
         width: 100%;
+
         img {
           width: 320px;
         }
@@ -123,17 +131,20 @@
   .pokemon-description {
     .poke-info {
       padding: 0 10px;
+
       .poke-img {
         img {
           width: 250px;
         }
       }
+
       .poke-stat {
         .stats-wrapper {
           .canvas {
             width: 30px;
           }
-          p:nth-child(2){
+
+          p:nth-child(2) {
             transform: rotate(-60deg);
           }
         }

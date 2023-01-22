@@ -15,7 +15,7 @@ export const PokemonDescription = ({pokeName}) => {
     const loadPokemon = async (pokeName) => {
         try {
             const res = await getPokemon(pokeName)
-            setPokemon(res.data.name[0].toUpperCase() + res.data.name.slice(1))
+            setPokemon(res.data.name.toUpperCase())
             setPokemonId(res.data.id)
             setPokemonWeight(res.data.weight)
             setPokemonHeight(res.data.height)
@@ -42,10 +42,10 @@ export const PokemonDescription = ({pokeName}) => {
                     <img
                         src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png`}
                         alt={pokemon}
-                    key={pokemonId + 10}/>
+                    key={pokemonId+pokemon}/>
                 </div>
                 <div className={'poke-descr'}>
-                    <h3>DESCRIPTION</h3>
+                    <h3>Description</h3>
                     <p>Weight:</p> <span>{pokemonWeight}</span>
                     <br/>
                     <p>Height:</p> <span>{pokemonHeight}</span>
@@ -62,7 +62,7 @@ export const PokemonDescription = ({pokeName}) => {
                     </div>
                 </div>
                 <div className={'poke-stat'}>
-                    <h3>STATS</h3>
+                    <h3>Statistics</h3>
                     <div className={'stats-wrapper'}>
                         {pokemonStat.map((elem, index) => {
                             return (
@@ -70,7 +70,7 @@ export const PokemonDescription = ({pokeName}) => {
                                     <p key={elem.stat.name}
                                        style={{backgroundImage: `linear-gradient(to top, hotpink ${elem.base_stat}%, rgba(0,0,0,0) ${elem.base_stat}%)`}}
                                        className={'canvas'}/>
-                                    <p key={index+100}>{elem.stat.name[0].toUpperCase() + elem.stat.name.slice(1)}</p>
+                                    <p key={index+elem.stat.name}>{elem.stat.name[0].toUpperCase() + elem.stat.name.slice(1)}</p>
                                 </div>
                             )
                         })
