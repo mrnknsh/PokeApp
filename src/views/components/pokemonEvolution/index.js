@@ -3,9 +3,11 @@ import {useEffect, useState} from "react";
 import {getPokemon} from "../../../services";
 import {API} from "../../../API";
 import './style.scss'
+import {Link} from "react-router-dom";
 
 export const PokemonEvolution = ({pokeName}) => {
     const [evolution, setEvolution] = useState([])
+
 
     const getEvolution = async (pokeName) => {
         try {
@@ -32,26 +34,35 @@ export const PokemonEvolution = ({pokeName}) => {
         } catch (error) {
             console.log(error)
         } finally {
+
         }
     }
 
     useEffect(() => {
         getEvolution(pokeName)
-    }, [])
-
+        window.scrollTo(0, 0)
+    }, [pokeName])
 
     return (
         <div className={'evolution-wrapper'}>
-            <h3>Pokemon's evolution tree</h3>
+            <h3 id={'start'}>Pokemon's evolution tree</h3>
             {
                 evolution.map((elem, index) => {
                     return (
                         <div className={'evolution-item'}>
-                            <p key={index+1} className={'evolution-step'}>Evolution step {index+1}</p>
+                            <p key={index + 1} className={'evolution-step'}>Evolution step {index + 1}</p>
                             <img
                                 src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${elem.id}.png`}
-                                alt={elem.name} key={elem.id*1000}/>
-                            <p key={elem.name}>{elem.name[0].toUpperCase() + elem.name.slice(1)}</p>
+                                alt={elem.name} key={elem.id * 1000}/>
+                            <p>
+                                <Link
+                                    to={`/pokemons/${elem.name}`}
+                                    className={pokeName === elem.name ? 'pointer-none' : ''}
+                                    // onClick={() => scrollTo('#start')}
+                                >
+                                    {elem.name[0].toUpperCase() + elem.name.slice(1)}
+                                </Link>
+                            </p>
                         </div>
                     )
                 })
