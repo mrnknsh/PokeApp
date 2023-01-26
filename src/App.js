@@ -4,16 +4,22 @@ import {Home} from "./views/pages/home";
 import {NotFound} from "./views/pages/notFound";
 import {Pokemons} from "./views/pages/pokemons";
 import {Pokemon} from "./views/pages/pokemon";
+import {useState} from "react";
 
 
 export const App = () => {
+    const [searchingPokemon, setSearchingPokemon] = useState('')
+    const onSearchPokemon = (value) => {
+        setSearchingPokemon(value)
+    }
+
     return (
         <div className="App">
             <Router>
                 <Routes>
-                    <Route path='/' element={<Layout/>}>
+                    <Route path='/' element={<Layout onSearchPokemon={onSearchPokemon}/>}>
                         <Route index element={<Home/>}/>
-                        <Route path='/pokemons' element={<Pokemons/>}/>
+                        <Route path='/pokemons' element={<Pokemons searchingPokemon={searchingPokemon}/>}/>
                         <Route path='/pokemons/:name' element={<Pokemon/>}/>
                         <Route path='*' element={<NotFound/>}/>
                     </Route>
