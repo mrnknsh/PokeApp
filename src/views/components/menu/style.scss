@@ -1,7 +1,8 @@
 .main-menu {
   color: #ffff52;
   display: grid;
-  grid-template-columns: 60px 1fr;
+  grid-template-columns: 260px 1fr 260px;
+  justify-content: space-between;
   padding: 8px 30px 0;
   font-size: 1.5rem;
   background-color: #3f51b5;
@@ -11,7 +12,7 @@
   width: 74%;
 
   h1 {
-    margin: auto;
+    margin: 0;
 
     .logo-icon {
       width: 60px;
@@ -75,11 +76,54 @@
     text-align: right;
     position: relative;
   }
+
+  .search-container {
+    input {
+      padding: 10px 18px;
+      border: none;
+      border-radius: 20px;
+      font-size: 1rem;
+      display: inline-block;
+      width: 155px;
+      margin: 10px;
+
+      &:focus {
+        outline: 0;
+      }
+    }
+
+    button {
+      padding: 8px 15px;
+      color: #ffff52;
+      background-color: #3f51b5;
+      border: 2px solid #ffff52;
+      border-radius: 15px;
+      transition: all 500ms;
+
+      &:hover {
+        cursor: pointer;
+        color: #3f51b5;
+        background-color: #ffff52;
+        border: 2px solid #3f51b5;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1210px) {
+  .main-menu {
+    grid-template-columns: 120px 1fr 260px;
+  }
 }
 
 @media screen and (max-width: 1024px) {
   .main-menu {
     width: 100%;
+    grid-template-columns: 65px 1fr 50px;
+
+    .search-container {
+      text-align: right;
+    }
 
     ul {
       display: none;
@@ -119,6 +163,24 @@
 
     .burger-menu {
       display: block;
+    }
+  }
+}
+
+@media screen and (max-width: 530px) {
+  .main-menu {
+    padding: 8px 20px 0;
+
+    .search-container {
+      input {
+        width: 120px;
+        padding: 7px 12px;
+        margin: 14px 10px;
+      }
+
+      button {
+        padding: 5px 10px;
+      }
     }
   }
 }

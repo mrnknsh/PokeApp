@@ -58,7 +58,6 @@ export const PokemonEvolution = ({pokeName}) => {
                                 <Link
                                     to={`/pokemons/${elem.name}`}
                                     className={pokeName === elem.name ? 'pointer-none' : ''}
-                                    // onClick={() => scrollTo('#start')}
                                 >
                                     {elem.name[0].toUpperCase() + elem.name.slice(1)}
                                 </Link>
