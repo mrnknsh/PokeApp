@@ -1,8 +1,7 @@
 import './style.scss'
 import {useEffect, useState} from "react";
 
-export const Pagination = ({numberOfPages, pageSize, onLoadPokemons, prevPage, nextPage, isLoading, onGetPage}) => {
-    const [currentPage, setCurrentPage] = useState(0)
+export const Pagination = ({numberOfPages, currentPage, prevPage, nextPage, isLoading, onGetPage}) => {
     const [visiblePages, setVisiblePages] = useState([])
 
     const getVisiblePage = (page) => {
@@ -44,43 +43,23 @@ export const Pagination = ({numberOfPages, pageSize, onLoadPokemons, prevPage, n
     }
 
 
-    const colorSelectedPage = () => {
-        visiblePages.forEach(elem => elem.status = false)
-
-        visiblePages.find(elem => {
-            if (elem.pageNum === currentPage + 1) {
-                elem.status = true
-            }
-        })
-    }
-
-    useEffect(() => {
-        colorSelectedPage()
-    }, [colorSelectedPage])
-
     const getPageByNumber = (page) => {
-        setCurrentPage(page)
-        onLoadPokemons(page * pageSize, pageSize)
         getVisiblePage(page)
         onGetPage(page)
     }
     const getPrevPage = () => {
-        onLoadPokemons((currentPage - 1) * pageSize, pageSize)
         getVisiblePage(currentPage - 1)
-        setCurrentPage(currentPage - 1)
         onGetPage(currentPage - 1)
     }
     const getNextPage = () => {
-        onLoadPokemons((currentPage + 1) * pageSize, pageSize)
         getVisiblePage(currentPage + 1)
-        setCurrentPage(currentPage + 1)
         onGetPage(currentPage + 1)
     }
 
 
     useEffect(() => {
         getVisiblePage(currentPage)
-    }, [])
+    }, [currentPage])
 
 
     return (
@@ -89,7 +68,7 @@ export const Pagination = ({numberOfPages, pageSize, onLoadPokemons, prevPage, n
             </button>
             {numberOfPages ? visiblePages.map(elem => {
                 return (
-                    <button key={elem.pageNum - 1} className={elem.status ? 'selected-page number' : 'number'}
+                    <button key={elem.pageNum - 1} className={elem.pageNum === currentPage + 1 ? 'selected-page number' : 'number'}
                             onClick={() => getPageByNumber(elem.pageNum - 1)}
                             disabled={!!isLoading}>{elem.pageNum}</button>
                 )

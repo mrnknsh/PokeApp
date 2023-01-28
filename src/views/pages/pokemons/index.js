@@ -1,22 +1,28 @@
 import {useState, useEffect} from "react";
 import {getPokemons} from "../../../services";
 import {PokemonCard} from '../../components/pokemonCard'
+import { useNavigate, createSearchParams } from 'react-router-dom'
 import {Pagination} from "../../components/pagination";
 import './style.scss'
 
 export const Pokemons = ({searchingPokemon}) => {
+    const navigate = useNavigate();
+
     const pageSize = 10;
     const [pokemons, setPokemons] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     const [numberOfPages, setNumberOfPages] = useState(0)
     const [prevPage, setPrevPage] = useState(false)
     const [nextPage, setNextPage] = useState(false)
-    const [currentPage, setCurrentPage] = useState(0)
+    const [currentPage, setCurrentPage] = useState(1)
     const [countOfPokemons, setCountOfPokemons] = useState(0)
 
     const getPage = num => {
         setCurrentPage(num);
     };
+
+    const urlParams = new URLSearchParams(window.location.search)
+    const page = urlParams.get('page')
 
 
     const findPokemon = async (value) => {
@@ -55,8 +61,14 @@ export const Pokemons = ({searchingPokemon}) => {
     }
 
     useEffect(() => {
+        navigate({
+            pathname: "/pokemons",
+            search: createSearchParams({
+                page: currentPage + 1
+            }).toString()
+        });
         loadPokemons(currentPage * 10, pageSize)
-    }, [searchingPokemon])
+    } , [currentPage])
 
     useEffect(() => {
         if(searchingPokemon !== ''){
@@ -64,6 +76,14 @@ export const Pokemons = ({searchingPokemon}) => {
         }
     }, [searchingPokemon])
 
+    useEffect(() => {
+        if (!page) {
+            loadPokemons(currentPage * 10, pageSize)
+        } else {
+            setCurrentPage(+page - 1);
+            loadPokemons(+page * 10, pageSize)
+        }
+    }, [])
 
     return (
         <div className={'pokemons-page'}>
@@ -73,7 +93,7 @@ export const Pokemons = ({searchingPokemon}) => {
                         key={pokemon?.url} name={pokemon?.name}/>) :
                     <p>NotFound</p>}</div>
             }
-            <Pagination numberOfPages={numberOfPages} pageSize={pageSize} onLoadPokemons={loadPokemons}
+            <Pagination numberOfPages={numberOfPages} pageSize={pageSize} onLoadPokemons={loadPokemons} currentPage={currentPage}
                         prevPage={prevPage} nextPage={nextPage} isLoading={isLoading} onGetPage={getPage}/>
         </div>
     )
