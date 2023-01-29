@@ -1,36 +1,24 @@
-import {useState, useEffect} from "react";
+import {useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import {getPokemons} from "../../../services";
 import {PokemonCard} from '../../components/pokemonCard'
-import { useNavigate, createSearchParams } from 'react-router-dom'
 import {Pagination} from "../../components/pagination";
 import './style.scss'
 
 export const Pokemons = ({searchingPokemon}) => {
-    const navigate = useNavigate();
+    const { pageNum } = useParams()
 
     const pageSize = 10;
     const [pokemons, setPokemons] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     const [numberOfPages, setNumberOfPages] = useState(0)
-    const [prevPage, setPrevPage] = useState(false)
-    const [nextPage, setNextPage] = useState(false)
-    const [currentPage, setCurrentPage] = useState(1)
     const [countOfPokemons, setCountOfPokemons] = useState(0)
-
-    const getPage = num => {
-        setCurrentPage(num);
-    };
-
-    const urlParams = new URLSearchParams(window.location.search)
-    const page = urlParams.get('page')
-
+    const [mounted, setMounted] = useState(false)
 
     const findPokemon = async (value) => {
         setIsLoading(true)
         try {
             const res = await getPokemons(0, countOfPokemons)
-            setPrevPage(true)
-            setNextPage(true)
             setNumberOfPages(0)
             let arr = res?.data?.results
             let onSearchingPokemon = arr.filter(pokemon => {
@@ -49,8 +37,6 @@ export const Pokemons = ({searchingPokemon}) => {
         try {
             const res = await getPokemons(offset, limit)
             setPokemons(res?.data?.results || [])
-            setPrevPage(res?.data?.previous === null)
-            setNextPage(res?.data?.next === null)
             setCountOfPokemons(res.data.count)
             setNumberOfPages(Math.ceil(res.data.count / pageSize))
         } catch (error) {
@@ -61,29 +47,18 @@ export const Pokemons = ({searchingPokemon}) => {
     }
 
     useEffect(() => {
-        navigate({
-            pathname: "/pokemons",
-            search: createSearchParams({
-                page: currentPage + 1
-            }).toString()
-        });
-        loadPokemons(currentPage * 10, pageSize)
-    } , [currentPage])
+        if (mounted) { 
+            loadPokemons((pageNum -1) * 10, pageSize) 
+        } else {
+            setMounted(true)
+        }
+    } , [pageNum, mounted])
 
     useEffect(() => {
         if(searchingPokemon !== ''){
             findPokemon(searchingPokemon)
         }
     }, [searchingPokemon])
-
-    useEffect(() => {
-        if (!page) {
-            loadPokemons(currentPage * 10, pageSize)
-        } else {
-            setCurrentPage(+page - 1);
-            loadPokemons(+page * 10, pageSize)
-        }
-    }, [])
 
     return (
         <div className={'pokemons-page'}>
@@ -93,8 +68,7 @@ export const Pokemons = ({searchingPokemon}) => {
                         key={pokemon?.url} name={pokemon?.name}/>) :
                     <p>NotFound</p>}</div>
             }
-            <Pagination numberOfPages={numberOfPages} pageSize={pageSize} onLoadPokemons={loadPokemons} currentPage={currentPage}
-                        prevPage={prevPage} nextPage={nextPage} isLoading={isLoading} onGetPage={getPage}/>
+            <Pagination numberOfPages={numberOfPages} isLoading={isLoading}/>
         </div>
     )
 }

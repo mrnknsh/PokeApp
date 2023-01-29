@@ -2,13 +2,16 @@ import {Link} from 'react-router-dom'
 import './style.scss'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {faBars, faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons'
-import {useState} from "react";
+import { useState, useEffect } from "react";
+import { useLocation } from 'react-router-dom';
 import {menuItems} from "./menu";
 
 
 export const Menu = ({onSearchPokemon}) => {
+    const location = useLocation()
+
     const [isMenuActive, setIsMenuActive] = useState(false)
-    const [activeKey, setActiveKey] = useState('mainMenu1')
+    const [activeKey, setActiveKey] = useState(null)
     const [searchingValue, setSearchingValue] = useState('')
     const handleActiveKey = (key) => setActiveKey(key)
 
@@ -21,6 +24,19 @@ export const Menu = ({onSearchPokemon}) => {
         onSearchPokemon(searchingValue)
         setSearchingValue('')
     }
+
+    useEffect(() => {
+        let isActiveItem = false;
+        menuItems.map(menuItem => {
+            if(location.pathname.indexOf(menuItem.existUrl) !== -1) {
+                setActiveKey(menuItem.key)
+                isActiveItem = true
+            }
+        });
+        if(!isActiveItem) {
+            setActiveKey('mainMenu1')
+        }
+    }, [])
 
     return (
         <nav className={'main-menu'}>

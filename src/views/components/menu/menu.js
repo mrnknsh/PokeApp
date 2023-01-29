@@ -2,11 +2,13 @@ export const menuItems = [
     {
         name: 'Home',
         key: 'mainMenu1',
-        link: '/'
+        link: '/',
+        existUrl: '/home'
     },
     {
         name: 'Pokemons',
         key: 'mainMenu2',
-        link: '/pokemons'
+        link: '/pokemons/page/1',
+        existUrl: '/pokemons'
     },
 ]
