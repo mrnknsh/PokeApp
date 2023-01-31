@@ -49,8 +49,8 @@ export const PokemonEvolution = ({pokeName}) => {
     }, [pokeName])
 
     return (
-        <div className={'evolution-wrapper'}>
-            {isLoading ? <p>Evolution is loading..</p> : <>
+        isLoading ? <h4>Evolution is loading..</h4> :
+            <div className={'evolution-wrapper'}>
                 <h3 id={'start'}>Pokemon's evolution tree</h3>
                 {evolution?.length > 0 &&
                 evolution.map((elem, index) => {
@@ -71,8 +71,6 @@ export const PokemonEvolution = ({pokeName}) => {
                     )
                 })
                 }
-            </>
-            }
-        </div>
+            </div>
     )
 }
