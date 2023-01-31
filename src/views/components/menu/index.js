@@ -1,30 +1,40 @@
-import {Link} from 'react-router-dom'
+import {Link, useLocation} from 'react-router-dom'
 import './style.scss'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {faBars, faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons'
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {menuItems} from "./menu";
 
 
 export const Menu = ({onSearchPokemon}) => {
+    const location = useLocation()
     const [isMenuActive, setIsMenuActive] = useState(false)
-    const [activeKey, setActiveKey] = useState('mainMenu1')
-    const [searchingValue, setSearchingValue] = useState('')
+    const [activeKey, setActiveKey] = useState(null)
     const handleActiveKey = (key) => setActiveKey(key)
 
-    const getSearchingValue = (e) =>{
+    const [searchingValue, setSearchingValue] = useState('')
+
+    const getSearchingValue = (e) => {
         setSearchingValue(e.target.value)
     }
 
-    const searchPokemon = (e) =>{
+    const searchPokemon = (e) => {
         e.preventDefault()
         onSearchPokemon(searchingValue)
         setSearchingValue('')
     }
 
+    useEffect(() => {
+        menuItems.map(elem => {
+            if (location.pathname.indexOf(elem.checkingUrl) !== -1) {
+                setActiveKey(elem.key)
+            } else setActiveKey('mainMenu1')
+        })
+    })
+
     return (
         <nav className={'main-menu'}>
-            <h1 onClick={()=>setActiveKey('mainMenu1')}>
+            <h1 onClick={() => setActiveKey('mainMenu1')}>
                 <Link to='/'>
                     <img src="pngwing.png" alt="logo" className={'logo-icon'}/>
                 </Link>
