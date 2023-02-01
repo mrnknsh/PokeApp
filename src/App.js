@@ -19,7 +19,7 @@ export const App = () => {
                 <Routes>
                     <Route path='/' element={<Layout onSearchPokemon={onSearchPokemon}/>}>
                         <Route index element={<Home/>}/>
-                        <Route path='/pokemons' element={<Pokemons searchingPokemon={searchingPokemon}/>}/>
+                        <Route path='/pokemons/page/:pageNum' element={<Pokemons searchingPokemon={searchingPokemon}/>}/>
                         <Route path='/pokemons/:name' element={<Pokemon/>}/>
                         <Route path='*' element={<NotFound/>}/>
                     </Route>

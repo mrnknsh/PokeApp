@@ -1,101 +1,20 @@
 import './style.scss'
-import {useEffect, useState} from "react";
+import {Link, useParams} from "react-router-dom";
 
-export const Pagination = ({numberOfPages, pageSize, onLoadPokemons, prevPage, nextPage, isLoading, onGetPage}) => {
-    const [currentPage, setCurrentPage] = useState(0)
-    const [visiblePages, setVisiblePages] = useState([])
-
-    const getVisiblePage = (page) => {
-        if (page === 0) {
-            setVisiblePages([
-                {pageNum: page + 1, status: false},
-                {pageNum: page + 2, status: false},
-                {pageNum: page + 3, status: false},
-            ])
-        } else if (page === 1) {
-            setVisiblePages([
-                {pageNum: page, status: false},
-                {pageNum: page + 1, status: false},
-                {pageNum: page + 2, status: false},
-                {pageNum: page + 3, status: false},
-            ])
-        } else if (page === numberOfPages - 1) {
-            setVisiblePages([
-                {pageNum: page - 1, status: false},
-                {pageNum: page, status: false},
-                {pageNum: page + 1, status: false},
-            ])
-        } else if (page === numberOfPages - 2) {
-            setVisiblePages([
-                {pageNum: page - 2, status: false},
-                {pageNum: page - 1, status: false},
-                {pageNum: page, status: false},
-                {pageNum: page + 1, status: false},
-            ])
-        } else {
-            setVisiblePages([
-                {pageNum: page - 1, status: false},
-                {pageNum: page, status: false},
-                {pageNum: page + 1, status: false},
-                {pageNum: page + 2, status: false},
-                {pageNum: page + 3, status: false},
-            ])
-        }
-    }
-
-
-    const colorSelectedPage = () => {
-        visiblePages.forEach(elem => elem.status = false)
-
-        visiblePages.find(elem => {
-            if (elem.pageNum === currentPage + 1) {
-                elem.status = true
-            }
-        })
-    }
-
-    useEffect(() => {
-        colorSelectedPage()
-    }, [colorSelectedPage])
-
-    const getPageByNumber = (page) => {
-        setCurrentPage(page)
-        onLoadPokemons(page * pageSize, pageSize)
-        getVisiblePage(page)
-        onGetPage(page)
-    }
-    const getPrevPage = () => {
-        onLoadPokemons((currentPage - 1) * pageSize, pageSize)
-        getVisiblePage(currentPage - 1)
-        setCurrentPage(currentPage - 1)
-        onGetPage(currentPage - 1)
-    }
-    const getNextPage = () => {
-        onLoadPokemons((currentPage + 1) * pageSize, pageSize)
-        getVisiblePage(currentPage + 1)
-        setCurrentPage(currentPage + 1)
-        onGetPage(currentPage + 1)
-    }
-
-
-    useEffect(() => {
-        getVisiblePage(currentPage)
-    }, [])
-
+export const Pagination = ({numberOfPages}) => {
+    const {pageNum} = useParams()
 
     return (
         <div className={'page-btns'}>
-            <button className={'prev-next'} onClick={() => getPrevPage()} disabled={prevPage}>Prev
-            </button>
-            {numberOfPages ? visiblePages.map(elem => {
-                return (
-                    <button key={elem.pageNum - 1} className={elem.status ? 'selected-page number' : 'number'}
-                            onClick={() => getPageByNumber(elem.pageNum - 1)}
-                            disabled={!!isLoading}>{elem.pageNum}</button>
-                )
-            }) : []}
-            <button className={'prev-next'} onClick={() => getNextPage()} disabled={nextPage}>Next
-            </button>
+            {pageNum > 5 && <button><Link to={`/pokemons/page/${1}`}>{1}</Link></button>}
+            {pageNum > 5 && <span>...</span>}
+            {pageNum > 2 && <button><Link to={`/pokemons/page/${+pageNum - 2}`} >{+pageNum - 2}</Link></button>}
+            {pageNum > 1 && <button><Link to={`/pokemons/page/${+pageNum - 1}`} >{+pageNum - 1}</Link></button>}
+            <button className={'selected-page'}>{pageNum}</button>
+            {pageNum < numberOfPages && <button><Link to={`/pokemons/page/${+pageNum + 1}`}>{+pageNum + 1}</Link></button>}
+            {pageNum < numberOfPages - 1 && <button><Link to={`/pokemons/page/${+pageNum + 2}`}>{+pageNum + 2}</Link></button>}
+            {pageNum < numberOfPages - 4 && <span>...</span>}
+            {pageNum < numberOfPages - 4 && <button><Link to={`/pokemons/page/${numberOfPages}`}>{numberOfPages}</Link></button>}
         </div>
     )
 }
