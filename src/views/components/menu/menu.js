@@ -8,7 +8,7 @@ export const menuItems = [
     {
         name: 'Pokemons',
         key: 'mainMenu2',
-        link: '/pokemons',
+        link: '/pokemons/page/1',
         checkingUrl: '/pokemons'
     },
 ]
