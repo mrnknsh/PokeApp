@@ -1,6 +1,7 @@
 import './style.scss'
 import {Link, useParams} from "react-router-dom";
 
+
 export const Pagination = ({numberOfPages}) => {
     const {pageNum} = useParams()
 
