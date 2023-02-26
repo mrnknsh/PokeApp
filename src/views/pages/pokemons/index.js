@@ -18,9 +18,9 @@ export const Pokemons = ({searchingPokemon}) => {
     const [currentPage, setCurrentPage] = useState(0)
     const [countOfPokemons, setCountOfPokemons] = useState(0)
     const dispatch = useDispatch()
-    const reduxPokemons1 = reduxPokemons()
-    const reduxIsLoading = reduxPokemonsLoading()
-    const reduxError = reduxPokemonsError()
+    const reduxGetPokemons = reduxPokemons()
+    const reduxIsPokemonsLoading = reduxPokemonsLoading()
+    const c = reduxPokemonsError()
 
 
     // const findPokemon = async (value) => {
@@ -52,6 +52,7 @@ export const Pokemons = ({searchingPokemon}) => {
             setNumberOfPages(Math.ceil(res.data.count / pageSize))
         } catch (error) {
             dispatch(handleLoadPokemonsFailed(error))
+            console.log(reduxGetPokemonsError)
         }
     }
 
@@ -70,9 +71,9 @@ export const Pokemons = ({searchingPokemon}) => {
     return (
         <div>
             <h2 className={'mx-40'}>Pokemons</h2>
-            {reduxIsLoading ? <div className={'px-40'}>Loading..</div> :
+            {reduxIsPokemonsLoading ? <div className={'px-40'}>Loading..</div> :
                 <div className={'pokemons-page'}>
-                    <div className={'pokemons-block px-40'}>{reduxPokemons1?.length ? reduxPokemons1.map(pokemon =>
+                    <div className={'pokemons-block px-40'}>{reduxGetPokemons?.length ? reduxGetPokemons.map(pokemon =>
                             <PokemonCard
                                 key={pokemon?.url} name={pokemon?.name}/>) :
                         <p>NotFound</p>}</div>
