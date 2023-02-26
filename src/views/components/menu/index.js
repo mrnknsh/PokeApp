@@ -6,7 +6,7 @@ import {useEffect, useState} from "react";
 import {menuItems} from "./menu";
 
 
-export const Menu = ({onSearchPokemon}) => {
+export const Menu = ({onSearchPokemons}) => {
     const location = useLocation()
     const [isMenuActive, setIsMenuActive] = useState(false)
     const [activeKey, setActiveKey] = useState(null)
@@ -20,7 +20,7 @@ export const Menu = ({onSearchPokemon}) => {
 
     const searchPokemon = (e) => {
         e.preventDefault()
-        onSearchPokemon(searchingValue)
+        onSearchPokemons(searchingValue)
         setSearchingValue('')
     }
 
@@ -50,7 +50,11 @@ export const Menu = ({onSearchPokemon}) => {
             </ul>
             <div className={'search-container'}>
                 <input type="text" placeholder={'Find pokemon'} value={searchingValue} onChange={getSearchingValue}/>
-                <button onClick={searchPokemon}><FontAwesomeIcon icon={faMagnifyingGlass}/></button>
+                <button onClick={searchPokemon}>
+                    <Link to={`/pokemons/search/${searchingValue}`}>
+                        <FontAwesomeIcon icon={faMagnifyingGlass}/>
+                    </Link>
+                </button>
             </div>
             <div className={'burger-menu'} onClick={() => setIsMenuActive(!isMenuActive)}>
                 <FontAwesomeIcon icon={faBars}/>

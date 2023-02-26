@@ -4,7 +4,6 @@ import {PokemonEvolution} from "../../components/pokemonEvolution";
 
 export const Pokemon = () => {
     const {name} = useParams()
-
     return (
         <div>
             <PokemonDescription pokeName={name}/>
