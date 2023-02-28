@@ -1,42 +1,44 @@
 import {useEffect, useState} from "react";
 import {PokemonCard} from "../../components/pokemonCard";
-import {getPokemons} from "../../../services";
+import {getPokemons, getSearchingPokemons} from "../../../services";
+import {useParams} from "react-router-dom";
 
-export const Search = ({searchingPokemons}) =>{
+export const Search = () => {
     const [pokemonsData, setPokemonsData] = useState([])
     const [isLoading, setIsLoading] = useState(false)
+    const {names} = useParams()
 
-    const loadPokemons = async () =>{
+    const loadPokemons = async () => {
         setIsLoading(true)
-        try{
-            const res = await getPokemons(0, 100)
-            const allPokemons = res?.data?.result
+        try {
+            const getCountOfPokemons = await getPokemons(0, 10)
+            const getAllPokemons = await getSearchingPokemons(getCountOfPokemons)
+            const allPokemons = getAllPokemons?.data?.results
             const sortAllPokemons = allPokemons.filter(pokemon => {
-                return pokemon.name.toUpperCase().includes(value.toUpperCase())
+                return pokemon.name.toUpperCase().includes(names.toUpperCase())
             })
             setPokemonsData(sortAllPokemons)
-        }
-        catch {
+        } catch {
             console.log(error)
-        }
-        finally {
+        } finally {
             setIsLoading(false)
         }
     }
 
-    useEffect(()=>{
-        if(searchingPokemons !== ''){
+    useEffect(() => {
+        if (names !== '') {
             loadPokemons()
         }
-    }, [searchingPokemons])
+    }, [names])
 
-    return(
+    return (
         <div className={'pokemons-page'}>
             <h2 className={'mx-40'}>Pokemons</h2>
             {isLoading ? <div>Loading..</div> :
-                <div className={'pokemons-block px-40'}>{pokemonsData?.length ? pokemonsData.map(pokemon => <PokemonCard
-                        key={pokemon?.url} name={pokemon?.name}/>) :
-                    <p>NotFound</p>}</div>
+                <>{pokemonsData?.length ?
+                    <div className={'pokemons-block px-40'}>{pokemonsData.map(pokemon => <PokemonCard key={pokemon?.url}
+                                                                                                      name={pokemon?.name}/>)}</div> :
+                    <p className={'px-40'}>Not Found</p>}</>
             }
         </div>
     )
