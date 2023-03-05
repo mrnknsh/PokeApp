@@ -8,3 +8,7 @@ export const getPokemons = async (offset, limit) => {
 export const getPokemon = async (name) => {
     return axios.get(`${API}/pokemon/${name}`)
 }
+
+export const getSearchingPokemons = async (limit) => {
+    return axios.get(`${API}/pokemon?limit=${limit}`)
+}
